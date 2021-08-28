@@ -1,1 +1,2 @@
-# ku-polls
+# Ku-Polls Wiki
+[Home](../../wiki/home)
