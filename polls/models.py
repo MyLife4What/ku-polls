@@ -15,14 +15,32 @@ class Question(models.Model):
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
     was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published recently?'
 
-    def is_published(self):
-        "Returns True if current date is on or after question’s publication date"
-        pass
+    def is_closed(self):
+        """Return True if end_date passed."""
+        now = timezone.now()
+        return self.end_date <= now
 
+    def is_published(self):
+        """Returns True if current date is on or after question’s publication date
+
+        Returns:
+            bool : True if question was published.
+        """
+        now = timezone.now()
+        return self.end_date <= now
+
+    def can_vote(self):
+        """Returns True if voting is currently allowed for this question
+
+        Return:
+            bool: True if question is now open.
+        """
+        return self.is_published() and not self.is_closed()
 
 
 class Choice(models.Model):
