@@ -20,11 +20,6 @@ class Question(models.Model):
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published recently?'
 
-    def is_closed(self):
-        """Return True if end_date passed."""
-        now = timezone.now()
-        return self.end_date <= now
-
     def is_published(self):
         """Returns True if current date is on or after question’s publication date
 
@@ -40,7 +35,7 @@ class Question(models.Model):
         Return:
             bool: True if question is now open.
         """
-        return self.is_published() and not self.is_closed()
+        return self.is_published() and not self.end_date
 
 
 class Choice(models.Model):
