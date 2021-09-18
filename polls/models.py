@@ -35,7 +35,8 @@ class Question(models.Model):
         Return:
             bool: True if question is now open.
         """
-        return self.is_published() and not self.end_date
+        now = timezone.now()
+        return self.end_date >= now >= self.pub_date
 
 
 class Choice(models.Model):
