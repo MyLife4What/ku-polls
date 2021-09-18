@@ -55,8 +55,8 @@ class QuestionModelTests(TestCase):
         self.assertIs(previous_question.can_vote(), False)
 
     def test_can_vote_with_upcoming_question(self):
-        """can_vote() returns False for question that not opened yet."""
-        time = timezone.now() + datetime.timedelta(days=5)
+        """can_vote() returns False for question whose not opened yet (pub_date and end_date are in the future)."""
+        time = timezone.now() + datetime.timedelta(days=10)
         end_time = timezone.now() + datetime.timedelta(days=30)
         upcoming_question = Question(pub_date=time, end_date=end_time)
         self.assertIs(upcoming_question.can_vote(), False)
