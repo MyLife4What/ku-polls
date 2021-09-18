@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "polls/bootstrap.html" %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <h1>{{ question.question_text }}</h1>
+    {% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #86dbd2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'polls:index' %}">Polls</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'polls:index' %}">Home</a>
+                    </li>
+                </ul>
 
-    <ul>
-    {% for choice in question.choice_set.all %}
-        <div>
-            <span>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
-        </div>    {% endfor %}
-    </ul>
-    <div>
-        <a href="{% url 'polls:index' %}">Back to List of Polls</a>
+            </div>
+        </div>
+    </nav>
+    <div style="margin: 40px; border-style: solid;border-radius: 20px;border-width: thick; background-color: #d4fcf8">
+        <h1 style="margin-left: 30px">{{ question.question_text }}</h1>
+
+        <ul>
+            {% for choice in question.choice_set.all %}
+            <div style=" font-family: 'Kanit SemiBold'">
+                <span style="font-size: xx-large">{{ choice.choice_text }}  </span>
+                <span style="margin-left: 50px">({{ choice.votes }} vote{{ choice.votes|pluralize }})</span>
+            </div>
+            {% endfor %}
+        </ul>
+        <div style="text-align: right; margin-right: 40px;margin-bottom: 40px">
+            <button class="btn" style="background-color: #86dbd2">
+                <a href="{% url 'polls:detail' question.id %}"style="text-decoration: none;color:black">Vote again?</a>
+            </button>
+
+            <button class="btn" style="background-color: #86dbd2">
+                <a href="{% url 'polls:index' %}"style="text-decoration: none;color: black">Back to List of Polls</a>
+            </button>
+        </div>
     </div>
+    {% endblock %}
 </head>
 <body>
 
