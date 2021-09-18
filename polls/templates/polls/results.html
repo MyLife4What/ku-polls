@@ -7,11 +7,12 @@
 
     <ul>
     {% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
     {% endfor %}
     </ul>
-
-    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    <div>
+        <a href="{% url 'polls:index' %}">Back to List of Polls</a>
+    </div>
 </head>
 <body>
 
