@@ -1,20 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+{% extends "polls/bootstrap.html" %}
+    <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-    {% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #86dbd2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Polls</a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#foot">Credit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% if messages %}
+    <div class="messages">
+        {% for msg in messages %}
+        <h1 class="{{ msg.tags }}">{{ msg }}</h1>
         {% endfor %}
-    </ul>
-    {% else %}
-    <p>No polls are available.</p>
+    </div>
     {% endif %}
+    <div style="text-align: left;padding:100px;margin:70px">
+        <table class="table table-responsive" style="background-color: #86dbd2">
+            <thead>
+            <tr>
+                <th scope="col"><h4>Polls</h4></th>
+                <th scope="col"><h4>Vote</h4></th>
+                <th scope="col"><h4>Results</h4></th>
+            </tr>
+            </thead>
+            <tr>
+                {% if latest_question_list %}
+                {% for question in latest_question_list %}
+            <tr>
+            <td>
+                {% if question.was_published_recently %}
+                <h5>{{ question.question_text }}<span class="badge bg-danger"
+                                                      style="margin-left:20px ;font-size: small">New</span>
+                </h5></td>
+            {% else %}
+            <h5>{{ question.question_text }}</h5>
+            </td>
+            {% endif %}
+            {% if question.can_vote %}
+            <td>
+                <span>
+                    <button class="btn btn-light" type="button">
+                        <a href="{% url 'polls:detail' question.id %}"
+                           style="text-decoration: none;color: black">Vote here</a></button>
+                </span></td>
+            {% else %}
+            <td>
+                <span>Cannot Vote</span>
+            </td>
+            {% endif %}
+            <td>
+                <button class="btn btn-light" type="button" type="button">
+                    <span>
+                        <a href="{% url 'polls:results' question.id %}" style="text-decoration: none;color: black">Results</a>
+                    </span>
+                </button>
+            </td>
+        </tr>
+            {% endfor %}
+            {% else %}
+            <p>No polls are available.</p>
+            {% endif %}
+            </tr>
+        </table>
+    </div>
+    {% endblock %}
 </head>
 <body>
+
 </body>
 </html>

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
+from django.contrib import messages
 
 
 class IndexView(generic.ListView):
@@ -57,3 +58,10 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
+def detail(request, question_id=None):
+    question = get_object_or_404(Question, pk=question_id)
+    if not question.can_vote():
+        messages.error(request, f"Poll not available")
+        return HttpResponseRedirect(reverse('polls:index'))
+    else:
+        return render(request, 'polls/detail.html', {'question': question, })

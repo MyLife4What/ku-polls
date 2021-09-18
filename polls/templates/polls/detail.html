@@ -1,18 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <h1>{{ question.question_text }}</h1>
+{% extends "polls/bootstrap.html" %}
+    <head>
+    {% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #86dbd2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'polls:index' %}">Polls</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'polls:index' %}">Home</a>
+                    </li>
+                </ul>
 
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-    <form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-    {% endfor %}
-    <input type="submit" value="Vote">
-    </form>
+            </div>
+        </div>
+    </nav>
+    <div style="margin: 40px; border-style: solid;border-radius: 20px;border-width: thick; background-color: #d4fcf8">
+        <h1 style="margin-left: 40px;margin-top: 20px">{{ question.question_text }}</h1>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <div style="margin: 40px">
+            <form action="{% url 'polls:vote' question.id %}" method="post">
+                {% csrf_token %}
+                {% for choice in question.choice_set.all %}
+                <div style="margin-top: 20px">
+                    <button  type="submit"  class="btn" style="background-color: #86dbd2" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"> VOTE</button>
+                    <label for="choice{{ forloop.counter }}"style="margin-left: 20px;font-size: x-large">{{ choice.choice_text }}</label></div><br>
+                {% endfor %}
+            </form>
+            <div style="margin-top: 40px;text-align: right">
+                <button  class="btn" style="background-color: #86dbd2">
+                    <a href="{% url 'polls:index' %}" style="text-decoration: none;color: black; font-size: large ">Back to List of Polls</a>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 </head>
 <body>
 
