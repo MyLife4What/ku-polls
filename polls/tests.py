@@ -35,6 +35,25 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
+    def test_is_published_with_previous_question(self):
+        """is_published() returns True for question whose pub_date is in the past."""
+        time = timezone.now() - datetime.timedelta(days=10)
+        previous_question = Question(pub_date=time)
+        self.assertIs(previous_question.is_published(), True)
+
+    def test_is_published_with_upcoming_question(self):
+        """is_published() returns False for question whose pub_date is in the future."""
+        time = timezone.now() + datetime.timedelta(hours=12)
+        upcoming_question = Question(pub_date=time)
+        self.assertIs(upcoming_question.is_published(), False)
+
+    def test_can_vote_with_previous_question(self):
+        """can_vote() returns False for question whose closed (pub_date and end_date are in the past)."""
+        time = timezone.now() - datetime.timedelta(days=5)
+        end_time = timezone.now() - datetime.timedelta(days=3)
+        previous_question = Question(pub_date=time, end_date=end_time)
+        self.assertIs(previous_question.can_vote(), False)
+
 
 def create_question(question_text, days):
     """
