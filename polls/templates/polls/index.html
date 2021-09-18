@@ -32,12 +32,12 @@
     </div>
     {% endif %}
     <div style="text-align: left;padding:20px;margin:70px">
-        <table class="table table-sm" style="background-color: #86dbd2">
+        <table class="table table-responsive" style="background-color: #86dbd2">
             <thead>
             <tr>
-                <th scope="col">Polls</th>
-                <th scope="col">Vote</th>
-                <th scope="col">Results</th>
+                <th scope="col"><h4>Polls</h4></th>
+                <th scope="col"><h4>Vote</h4></th>
+                <th scope="col"><h4>Results</h4></th>
             </tr>
             </thead>
             <tr>
@@ -46,11 +46,11 @@
             <tr>
             <td>
                 {% if question.was_published_recently %}
-                <h4>{{ question.question_text }}<span class="badge bg-danger"
+                <h5>{{ question.question_text }}<span class="badge bg-danger"
                                                       style="margin-left:20px ;font-size: small">New</span>
-                </h4></td>
+                </h5></td>
             {% else %}
-            <h4>{{ question.question_text }}</h4>
+            <h5>{{ question.question_text }}</h5>
             </td>
             {% endif %}
             {% if question.can_vote %}
