@@ -15,7 +15,7 @@ class Question(models.Model):
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
-    end_date = models.DateTimeField('ending date for voting', null=True)
+    end_date = models.DateTimeField('ending date for voting', null=True, default=timezone.now)
 
     def __str__(self):
         """Return question text."""
