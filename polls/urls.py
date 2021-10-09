@@ -1,3 +1,4 @@
+"""URLs for polls app."""
 from django.urls import path
 from . import views
 from django.http import HttpResponse
@@ -14,6 +15,7 @@ urlpatterns = [
 
 
 def index(request):
+    """Question list for user's request."""
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     output = ', '.join([q.question_text for q in latest_question_list])
     return HttpResponse(output)
