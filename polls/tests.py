@@ -118,7 +118,7 @@ class QuestionIndexViewTests(TestCase):
                                           days=5)
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
 
     def test_future_question_and_past_question(self):
         """Even if both past and future questions exist.
