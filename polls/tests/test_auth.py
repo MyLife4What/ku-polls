@@ -26,5 +26,5 @@ class AuthenticationTest(TestCase):
         """Test logged out, the user username will be not shown on the index page."""
         self.client.post(reverse('login'), self.user)
         response = self.client.post(reverse('logout'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertFalse(response.context['user'].is_authenticated)
