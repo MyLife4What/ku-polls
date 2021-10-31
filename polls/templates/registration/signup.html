@@ -1,12 +1,30 @@
-<h2>Register</h2>
-<form method="POST">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    <tr>
-    <td colspan="2">
-    <button type="submit">Register</button>
-    </td>
-    </tr>
-    </table>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+{% extends "polls/bootstrap.html" %}
+<head>
+    <meta charset="UTF-8">
+    {% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #86dbd2">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'polls:index' %}">Polls</a>
+        </div>
+    </nav>
+    <div style="margin: 50px; border-style: solid;border-radius: 10px;border-width: thick; background-color: #d4fcf8">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <h1 style="text-align: left;margin-left: 10px">Register</h1>
+            <form method="POST" style="text-align: left;margin-left: 10px">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn" style="margin-left: 10px; margin-bottom: 20px; width: 20%; background-color: #86dbd2" type="submit">Register</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </ul>
+    </div>
+    {% endblock %}
+</head>
+</html>
