@@ -9,3 +9,4 @@ Welcome to Ku-Polls. You can read an instruction by these way:<br>
 ## Iteration
 - [Iteration 1 Plan](../../wiki/Iteration-1)<br>
 - [Iteration 2 Plan](../../wiki/Iteration-2)<br>
+- [Iteration 3 Plan](../../wiki/Iteration-3)
