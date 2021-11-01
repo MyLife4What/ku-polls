@@ -6,20 +6,18 @@
     {% block content %}
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #86dbd2">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Polls</a>
-            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
-                    data-bs-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="{% url 'polls:index' %}">Polls</a>
+            <div class="nav justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a aria-current="page" class="nav-link active" href="#">Home</a>
+                    {% if user.is_authenticated %}
+                    <li class="navbar-text">
+                        Current user: {{ user.username }}
+                        <a class="btn btn-light" href="{% url 'logout' %}">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#foot">Credit</a>
-                    </li>
+                    {% else %}
+                    <a class="btn btn-light" style="margin-right: 10px" href="{% url 'login' %}">Login</a>
+                    <a class="btn btn-light" href="{% url 'signup' %}">Sign Up</a>
+                    {% endif %}
                 </ul>
             </div>
         </div>
